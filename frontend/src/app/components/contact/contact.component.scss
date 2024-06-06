@@ -1,0 +1,111 @@
+.contact-us .inner {
+  box-shadow: 0px 0px 10px #00000024;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.contact-us .contact-us-form h2 {
+  position: relative;
+  font-size: 32px;
+  color: #333;
+  font-weight: 600;
+  line-height: 27px;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.contact-us .contact-us-form h2:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 50px;
+  background: #881BDE;
+}
+
+.contact-us .contact-us-form p {
+  font-size: 14px;
+  color: #333;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.contact-us .form .form-group {
+  margin-bottom: 12px;
+}
+
+.contact-us .form .form-group input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #eee;
+  text-transform: capitalize;
+  padding: 0px 18px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+.contact-us .form .form-group textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #eee;
+  text-transform: capitalize;
+  padding: 18px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+.contact-us .form .btn {
+  display: inline-block;
+  margin-right: 10px;
+  line-height: 20px;
+  width: 100%;
+}
+
+.contact-us .single-info {
+  background: #9061f9;
+  padding: 40px 40px;
+  min-height: 150px;
+  border-radius: 10px;
+  position: relative;
+  -webkit-transition: all .3s ease-out 0s;
+  -moz-transition: all .3s ease-out 0s;
+  -ms-transition: all .3s ease-out 0s;
+  -o-transition: all .3s ease-out 0s;
+  transition: all .3s ease-out 0s;
+}
+
+.contact-us .single-info:before {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 80%;
+  height: 90%;
+  background: #9061f9;
+  opacity: 0;
+  filter: blur(10px);
+  -webkit-transition: all .3s ease-out 0s;
+  -moz-transition: all .3s ease-out 0s;
+  -ms-transition: all .3s ease-out 0s;
+  -o-transition: all .3s ease-out 0s;
+  transition: all .3s ease-out 0s;
+}
+
+.contact-us .single-info:hover:before {
+  opacity: 0.8;
+}
+
+.contact-us .single-info:hover {
+  transform: translateY(-5px);
+}

@@ -1,0 +1,97 @@
+<app-header [title]="title" [subtitle]="subtitle"></app-header>
+
+<section class="mt-5">
+    <section class="contact-us section">
+        <div class="mx-auto p-4 pt-6 md:p-6 lg:p-12">
+          <div class="inner">
+            <div class="grid lg:grid-cols-2">
+              <div class="w-full p-4">
+                <div class="lg:block hidden">
+                  <!-- Start Google-map -->
+                  <div id="map" class="h-full w-full"></div>
+                  <!-- /End Google-map -->
+                </div>
+              </div>
+
+              <div class="w-full p-4">
+                <div class="contact-us-form sm:px-10 sm:py-8 px-2">
+                    <div class="text-center font-bold capitalize text-4xl mb-2"><span class="title">Connect </span>with us</div>
+                  <div class="text-lg text-center">If you have any questions please feel free to contact us.</div>
+                  <!-- Form -->
+                  <form class="form mt-5" method="post" action="mail/mail.php">
+                    <div class="flex flex-wrap">
+                      <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                        <div class="form-group">
+                          <input type="text" name="name" placeholder="Name" required="" class="w-full p-2 pl-10 text-sm text-gray-700">
+                        </div>
+                      </div>
+                      <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                        <div class="form-group">
+                          <input type="email" name="email" placeholder="Email" required="" class="w-full p-2 pl-10 text-sm text-gray-700">
+                        </div>
+                      </div>
+                      <div class="w-full p-2">
+                        <div class="form-group">
+                          <input type="text" name="subject" placeholder="Subject" required="" class="w-full p-2 pl-10 text-sm text-gray-700">
+                        </div>
+                      </div>
+                      <div class="w-full p-2">
+                        <div class="form-group">
+                          <textarea name="message" placeholder="Your Message" required="" class="w-full p-2 pl-10 text-sm text-gray-700"></textarea>
+                        </div>
+                      </div>
+                      <div class="w-full p-4">
+                        <div class="form-group login-btn">
+                          <button class="btn bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded" type="submit">Send</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- /End Form -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10">
+            <div class="xl:grid grid-cols-3">
+              <!-- single-info -->
+              <div class="w-full p-4 text-white">
+                <div class="single-info flex">
+                  <i class="fas fa-phone sm:text-5xl text-4xl"></i>
+                  <div class="content sm:ml-7 ml-5">
+                    <p class="sm:text-xl text-lg font-bold">+(237) 676 856 686</p>
+                    <p class="sm:text-xl text-lg font-bold">+(237) 669 765 512</p>
+                  </div>
+                </div>
+              </div>
+              <!--/End single-info -->
+              <!-- single-info -->
+              <div class="w-full p-4 text-white">
+                <div class="single-info flex">
+                  <i class="fas fa-envelope sm:text-5xl text-4xl"></i>
+                  <div class="content sm:ml-7 ml-5">
+                    <p class="sm:text-xl text-lg font-bold">oscarstyles@yahoo.com</p>
+                    <p class="sm:text-xl text-lg font-bold">Info@oscar.com</p>
+                  </div>
+                </div>
+              </div>
+              <!--/End single-info -->
+              <!-- single-info -->
+              <div class="w-full p-4 text-white">
+                <div class="single-info flex">
+                  <i class="fas fa-map-marker-alt sm:text-5xl text-4xl"></i>
+                  <div class="content sm:ml-7 ml-5">
+                    <p class="sm:text-xl text-lg font-bold">Akwa I, Rue Paul, Douala</p>
+                    <p class="sm:text-xl text-lg font-bold">Litorral, Cameroon</p>
+                  </div>
+                </div>
+              </div>
+              <!--/End single-info -->
+            </div>
+          </div>
+        </div>
+      </section>
+</section>
+
+<app-footer></app-footer>

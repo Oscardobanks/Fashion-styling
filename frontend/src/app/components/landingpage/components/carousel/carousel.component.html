@@ -1,0 +1,94 @@
+<section id="home" class="relative lg:h-screen overflow-hidden">
+  <div class="absolute inset-0 flex">
+    <div class="w-full lg:h-full flex">
+      <img [src]="images[currentImageIndex]" alt="Carousel Image" class="w-full object-cover carousel-image">
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="absolute inset-x-0 top-0 flex flex-col justify-center text-white z-10">
+    <nav id="nav-lg" class="text-center">
+      <a href="">
+        <p class="p-5 pt-8 text-7xl text-center uppercase logo">Oscar Styles</p>
+      </a>
+      <div class="uppercase flex justify-center gap-x-12 font-semibold">
+        <a (click)="onClickScrollToSection('home')">home</a>
+        <a (click)="onClickScrollToSection('services')">services</a>
+        <a (click)="onClickScrollToSection('about')">about</a>
+        <a (click)="onClickScrollToSection('testimonials')">testimonials</a>
+      </div>
+    </nav>
+
+    <header id="header" class="bg-white">
+      <nav
+          class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+          <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+              <a href="">
+                  <span
+                      class="logo text-3xl uppercase self-center font-semibold whitespace-nowrap dark:text-white text-purple-700">Oscar
+                      Styles</span>
+              </a>
+              <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                  <button data-collapse-toggle="navbar-sticky" type="button"
+                      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-purple-600 hover:text-white  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                      aria-controls="navbar-sticky" aria-expanded="false">
+                      <span class="sr-only">Open main menu</span>
+                      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 17 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M1 1h15M1 7h15M1 13h15" />
+                      </svg>
+                  </button>
+              </div>
+              <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                  <ul
+                      class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-purple-600 rounded-lg bg-purple-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                      <li>
+                          <a href="#"
+                              class="block py-2 px-3 text-gray-900 hover:bg-purple-600 hover:text-white md:hover:bg-transparent rounded md:bg-transparent md:hover:text-purple-600 md:p-0 md:dark:hover:text-purple-600"
+                              aria-current="page" (click)="onClickScrollToSection('home')">Home</a>
+                      </li>
+                      <li>
+                          <a href="#"
+                              class="block py-2 px-3 text-gray-900 rounded hover:bg-purple-600 hover:text-white md:hover:bg-transparent md:hover:text-purple-600 md:p-0 md:dark:hover:text-purple-600 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" (click)="onClickScrollToSection('services')">Services</a>
+                      </li>
+                      <li>
+                          <a href="#"
+                              class="block py-2 px-3 text-gray-900 rounded hover:bg-purple-600 hover:text-white md:hover:bg-transparent md:hover:text-purple-600 md:p-0 md:dark:hover:text-purple-600 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" (click)="onClickScrollToSection('about')">About</a>
+                      </li>
+                      <li>
+                          <a href="#"
+                              class="block py-2 px-3 text-gray-900 rounded hover:bg-purple-600 hover:text-white md:hover:bg-transparent md:hover:text-purple-600 md:p-0 md:dark:hover:text-purple-600 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" (click)="onClickScrollToSection('testimonials')">Testimonials</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </header>
+
+    <div class="div1">
+      <div class="text-5xl uppercase md:mt-28 mt-20 text-center">Personal stylist</div>
+
+      <div class="flex justify-center mt-4">
+        <p class="w-2/4 text-center capitalize">Welcome to our world of style and elegance! Unleash your fashion
+          potential
+          with our expert guidance and curated collections</p>
+      </div>
+
+      <div class="flex justify-center mt-6">
+        <button type="button" [routerLink]="['/signin']"
+          class="bg-transparent border border-white rounded-full px-4 py-2 text-white hover:bg-purple-700 hover:border-purple-700">Connect
+          With
+          Stylist</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="absolute inset-x-0 bottom-4 flex justify-center space-x-2 mt-4">
+    <span *ngFor="let image of images; let i = index" (click)="changeImage(i)"
+      [ngClass]="{'bg-purple-700': i === currentImageIndex, 'bg-gray-400': i !== currentImageIndex}"
+      class="carousel-dot w-4 h-4 rounded-full"></span>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+.notfound{
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    place-content: center;
+}
+
+.notfound .notfound-404 p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 230px;
+    background: linear-gradient(90deg, #9e5dd0 0%, #7634a9 20%, #6129d0 55%, #8141cb 90%, #8453b5 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .notfound{
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        place-content: center;
+    }
+    
+    .notfound .notfound-404 p {
+        font-size: 200px;
+    }
+}
+
+@media (max-width: 767px) {
+    .notfound{
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        place-content: center;
+    }
+
+    .notfound .notfound-404 p {
+        font-size: 110px;
+    }
+}
+
+@media (max-width: 300px) {
+    .notfound .notfound-404 p {
+        font-size: 80px;
+    }
+}

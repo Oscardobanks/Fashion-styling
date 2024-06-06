@@ -1,0 +1,68 @@
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(65, 23, 75, 0.35);
+}
+
+figure{
+    height: 350px;
+}
+
+.inbox:focus {
+    border-color: rgb(126 58 242);
+    box-shadow: 0 0 0 2px transparent;
+}
+
+button.active {
+    background-color: #881BDE;
+    color: white;
+}
+
+button[disabled] {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+@media (min-width: 1024px) {
+    .div1 div:first-child{
+        margin-top: 8%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    section:first-child {
+        height: 50vh;
+    }
+
+    .div1 div:first-child{
+        margin-top: 30%;
+    }
+
+    figure{
+        height: 300px;
+    }
+}
+
+@media (min-width: 380px) and (max-width: 500px) {
+    section:first-child {
+        height: 60vh;
+    }
+
+    .div1 div:first-child{
+        margin-top: 10%;
+    }
+}
+
+@media (max-width: 380px) {
+    section:first-child {
+        height: 75vh;
+    }
+
+    figure{
+        height: 300px;
+    }
+
+    .ad{
+        font-size: 30px;
+    }
+}

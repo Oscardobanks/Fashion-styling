@@ -1,0 +1,47 @@
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(65, 23, 75, 0.35);
+}
+
+@media (min-width: 1024px) {
+    .div1 div:first-child{
+        margin-top: 8%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    section {
+        height: 50vh;
+    }
+
+    .div1 div:first-child{
+        margin-top: 35%;
+    }
+}
+
+@media (min-width: 380px) and (max-width: 500px) {
+    section {
+        height: 60vh;
+    }
+
+    .div1 div:first-child{
+        margin-top: 60%;
+    }
+}
+
+@media (max-width: 380px) {
+    section {
+        height: 75vh;
+    }
+
+    .div1 div:first-child{
+        margin-top: 60%;
+    }
+}
+
+@media (max-width: 300px) {
+    .div1 div:first-child{
+        margin-top: 75%;
+    }
+}

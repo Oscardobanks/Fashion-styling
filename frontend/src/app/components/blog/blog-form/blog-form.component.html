@@ -1,0 +1,52 @@
+<app-header [title]="title" [subtitle]="subtitle"></app-header>
+
+<section>
+    <div class="my-10 md:p-10 mx-auto lg:w-2/4 w-10/12 md:border-2 border-gray-300 md:shadow-md md:bg-purple-50">
+        <p class="text-4xl capitalize font-bold text-center"> <span class="title">create</span> blog</p>
+        <form>
+            <div class="flex flex-col">
+                <label for="inputField" class="text-2xl font-bold">Title</label>
+                <input type="text" id="inputField" class="border focus:border-purple-500 outline-none"
+                    placeholder="Enter Blog Title" required>
+            </div>
+            <div class="flex flex-col my-5">
+                <label for="textareaField" class="text-2xl font-bold">Description</label>
+
+
+                <div
+                    class="w-full mb-4 border border-gray-300 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600 py-3">
+                    <div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600"></div>                    
+                    <div class="px-4 py-5 bg-white rounded-b-lg dark:bg-gray-800 flex flex-col gap-4">
+                        <label for="editor" class="sr-only">Publish post</label>
+                        <textarea id="editor" rows="4"
+                            class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                            placeholder="Write an introductory paragraph..." minlength="50" maxlength="600" required></textarea>
+                        <textarea id="editor" rows="8"
+                            class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                            placeholder="Write the article body..." required></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+            <label for="fileInput" class="cursor-pointer">
+                <div class="flex gap-4 md:bg-white bg-gray-100 w-full p-2">
+                    <div class="text-black font-semibold bg-purple-300 hover:bg-purple-400 rounded-md px-3 py-2">Choose
+                        Image</div>
+                    <p *ngIf="imageName" class="pt-2">{{ imageName }}</p>
+                    <input id="fileInput" type="file" class="hidden" (change)="onSelectFile($event)" required/>
+                </div>
+            </label>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
+                800 x 400px).</p>
+
+            <div class="mt-10 text-right w-full">
+                <button type="submit"
+                    class="text-white font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 w-full">Create
+                    Blog</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<app-footer></app-footer>

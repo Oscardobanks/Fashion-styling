@@ -1,0 +1,73 @@
+<section class="new-section mt-5" id="services">
+    <div class="my-5 new-section">
+      <p class="text-center font-bold uppercase title text-sm">services</p>
+      <div class="text-center capitalize heading text-4xl">
+        <span class="text-purple-700 title">What </span>we do
+      </div>
+      <div class="md:grid grid-cols-3 lg:gap-x-14 gap-x-8 lg:px-20 px-10  mt-8 div1 text-center">
+        <div class="text-center">
+          <img src="../assets/pexels-ron-lach-8396739.jpg" alt="">
+          <p class="text-3xl py-3 title">Personal Stylist</p>
+          Receive personalized fashion advice tailored to your individual style, body shape, and preferences. Fashion
+          stylists offer one-on-one consultations to understand the client's preferences, body type, and style goals.
+        </div>
+        <div class="text-center my-9 md:my-0">
+          <img src="../assets/pexels-ron-lach-8411001.jpg" alt="">
+          <p class="text-3xl py-3 title">Virtual Styling</p>
+          Experience personalized fashion consultations and outfit recommendations from the comfort of your home.
+          Virtual
+          styling sessions via video & voice calls or emails can be offered to clients who prefer remote styling
+          assistance.
+        </div>
+        <div class="text-center">
+          <img src="../assets/pexels-ron-lach-8411012.jpg" alt="">
+          <p class="text-3xl py-3 title">Trend Forecasting</p>
+          Get insights into the latest fashion trends, colors, and styles, and incorporate them into your wardrobe.
+          Stylists
+          keep clients informed about the seasonal styles, and must-have items through blog posts, newsletters, or
+          trend
+          reports.
+        </div>
+      </div>
+    </div>
+    <div class="lg:mt-20 my-8">
+      <div class="lg:grid grid-cols-2 sm:px-5 px-2 div2">
+        <img src="../assets/pexels-ron-lach-8387823.jpg" alt="" />
+        <article class="overflow-y-auto">
+          <div class="text-center capitalize text-4xl my-4"><span class="text-purple-700 title">Create
+            </span>Your new look</div>
+          <div *ngFor="let panel of panels; let i = index"
+            class="border border-gray-300 rounded-md shadow mb-4 capitalize sm:mx-5 px-2">
+            <div class="flex items-center justify-between sm:px-4 cursor-pointer" (click)="togglePanel(i)">
+  
+              <div class="flex sm:gap-5 gap-4 my-3">
+                <p class="panel-title title sm:text-lg font-bold"> {{panels[i].title}} </p>
+                <button class="border-purple-700 border rounded-full font-semibold px-3 py-0 uppercase"
+                  [style.background-color]="panels[i].expanded ? '#881BDE' : '#ffffff'"
+                  [style.color]="panels[i].expanded ? '#ffffff' : '#881BDE'">Step {{i + 1}}</button>
+              </div>
+  
+              <svg *ngIf="!panels[i].expanded" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+              <svg *ngIf="panels[i].expanded" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+              </svg>
+            </div>
+            <div class="panel-content px-4 mb-2" [class.expanded]="panels[i].expanded">
+              <p> {{ panels[i].content }} </p>
+            </div>
+          </div>
+          <div class="sm:flex justify-between sm:mx-5 px-2 mt-5">
+            <p class="capitalize py-2">Why wait, join us and get expert styling advice form our expert stylists.
+            </p>
+            <button type="button" [routerLink]="['/signin']"
+              class="hover:text-white hover:bg-purple-700 text-purple-700 font-bold border-purple-700 border-2 rounded-full py-2 px-4">Get
+              Styling</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>

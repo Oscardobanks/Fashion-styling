@@ -1,0 +1,145 @@
+a {
+    cursor: pointer;
+}
+
+.logo {
+    font-family: 'Footlight MT Light', serif;
+}
+
+.carousel-dot {
+    cursor: pointer;
+}
+
+.carousel-image {
+    transition: opacity 0.5s ease-in-out;
+    background-color: #000000;
+}
+
+.relative {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(65, 23, 75, 0.35);
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    section {
+        height: 50vh;
+    }
+}
+
+@media (min-width: 380px) and (max-width: 600px) {
+    section {
+        height: 60vh;
+    }
+}
+
+@media (max-width: 380px) {
+    section {
+        height: 75vh;
+    }
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+}
+
+a {
+    text-decoration: none;
+}
+
+#nav-lg div a:hover {
+    color: #992ee1;
+}
+
+/**
+  * Mobile Navigation 
+  */
+.mobile-nav-toggle {
+    color: #2c4964;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    line-height: 0;
+    transition: 0.5s;
+}
+
+@media (max-width: 991px) {
+    .mobile-nav-toggle {
+        display: block;
+    }
+
+    .navbar ul {
+        display: none;
+    }
+
+    #nav-lg {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    #header {
+        display: none;
+        /* Hide the navbar on screens larger than 992px */
+    }
+}
+
+@media (max-width: 375px) {
+    .div1 div:first-child{
+        margin-top: 12%;
+    }
+}
+
+.navbar-mobile {
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(28, 47, 65, 0.9);
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.navbar-mobile .mobile-nav-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.navbar-mobile ul {
+    display: block;
+    position: absolute;
+    top: 55px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 0;
+    background-color: #fff;
+    overflow-y: auto;
+    transition: 0.3s;
+}
+
+.navbar-mobile>ul>li {
+    padding-top: 20px;
+}
+
+.navbar-mobile a,
+.navbar-mobile a:focus {
+    padding: 20px 20px;
+    font-size: 15px;
+    color: #2c4964;
+    border: none;
+}
+
+.navbar-mobile a:hover,
+.navbar-mobile .active,
+.navbar-mobile li:hover>a {
+    color: #8419cc;
+}

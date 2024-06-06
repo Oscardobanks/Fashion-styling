@@ -1,0 +1,111 @@
+<section class="relative xl:h-3/4">
+    <img src="../assets/pexels-olly-3771088.jpg" alt="Background Image" class="w-full h-full object-cover">
+    <div class="overlay"></div>
+    <div class="absolute inset-x-0 top-0 flex flex-col justify-center text-white z-10">
+        <app-navbar></app-navbar>
+        <div class="div1 text-center absolute lg:right-10 xl:top-48 lg:top-60 md:top-0 top-40 lg:w-2/4 w-full">
+            <div class="text-5xl uppercase">{{ title }}</div>
+            <div class="flex justify-center mt-4">
+                <p class="lg:w-3/4 w-3/4 capitalize"> {{ subtitle }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lg:mx-20 md:mx-10 mx-5">
+    <div class="text-center font-bold capitalize text-4xl heading lg:mb-10 my-10"><span class="title">Fashion
+        </span>styles</div>
+
+    <div class="xl:grid grid-cols-10 lg:gap-10">
+        <div class="col-span-7">
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <figure *ngFor="let style of getPaginatedCards()" class="relative overflow-hidden rounded-lg">
+                    <a href="#">
+                        <img class="h-full w-full rounded-lg img-zoomin" [src]="style.image" alt="image description">
+                    </a>
+                    <figcaption class="absolute px-4 text-lg text-white bottom-5">
+                        <div class="font-semibold text-xl">
+                            <a href="#" class="text-white hover:text-purple-500">{{ style.title }}</a>
+                            <div class="flex justify-between mt-4">
+                                <a href="" class="font-semibold">By <span class="hover:text-purple-700"> {{ style.author
+                                        }}
+                                    </span></a>
+                                <p class=""><i class="fas fa-calendar-alt me-1"></i> {{ style.date }}</p>
+                            </div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div *ngIf="totalBlogs > 8" class="flex justify-center lg:mt-10 my-20">
+                <button class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg mr-2"
+                    (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+
+                <div class="flex">
+                    <button *ngFor="let pageNumber of pageNumbers"
+                        class="bg-gray-200 text-gray-700 px-2 py-2 rounded-lg mx-1"
+                        [ngClass]="{'text-white': pageNumber === currentPage, 'font-bold': pageNumber === currentPage, 'active': pageNumber === activePage}"
+                        (click)="goToPage(pageNumber); activePage = pageNumber">{{ pageNumber }}</button>
+                </div>
+
+                <button class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg ml-2"
+                    (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+            </div>
+        </div>
+
+        <div class="col-span-3">
+            <div class="border p-5 mb-10">
+                <div class="ad font-bold capitalize text-4xl lg:mb-10 md:mb-10 mb-10 pl-2 border-l-4 border-l-purple-700">
+                    <span class="title">Recent </span>blogs
+                </div>
+                <div *ngFor="let blog of recentBlog | slice:0:1" class="capitalize relative pb-5">
+                    <div class=" overflow-hidden rounded-lg">
+                        <img [src]="blog.image" alt="" class="img-zoomin rounded-lg">
+                    </div>
+                    <div class="my-3">
+                        <a href="" class="lg:text-2xl text-xl hover:text-purple-700 font-semibold">{{ blog.title }}</a>
+                    </div>
+                    <div class="flex gap-2 font-semibold text-lg text-gray-500">
+                        <i class="fas fa-calendar-alt mt-1"></i>
+                        <p> {{ blog.date }}</p>
+                    </div>
+                </div>
+
+                <div *ngFor="let blog of recentBlog | slice:1:4; let last = last">
+                    <div class="grid grid-cols-12 gap-2 items-center">
+                        <div class="col-span-5">
+                            <div class="overflow-hidden rounded-lg">
+                                <img [src]="blog.image" class="img-zoomin rounded" alt="">
+                            </div>
+                        </div>
+                        <div class="col-span-7">
+                            <div class="flex flex-col">
+                                <a href="" class="text-md hover:text-purple-700 font-semibold">
+                                    <span class="xl:block md:hidden block">{{ shortTitle(blog.title) }}</span>
+                                    <p class="xl:hidden md:block hidden text-lg">{{ blog.title }}</p>
+                                </a>
+                                <div class="flex gap-2 mt-2 font-semibold text-gray-500">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <p> {{ blog.date }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" *ngIf="!last">
+                </div>
+
+                <button type="button"
+                    class="border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold mt-5 p-2 w-full rounded-full">View
+                    More</button>
+            </div>
+            <div class="border p-5 mb-10">
+                <div class="ad font-bold capitalize text-4xl lg:mb-10 md:mb-0 mb-10 pl-2 border-l-4 border-l-purple-700">
+                    Advertisements
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<app-footer></app-footer>

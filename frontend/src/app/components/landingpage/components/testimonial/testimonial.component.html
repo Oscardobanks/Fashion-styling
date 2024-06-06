@@ -1,0 +1,25 @@
+<section id="testimonials" class="testimonials py-5 bg-purple-100">
+  <div>
+    <p class="text-center font-bold title uppercase text-sm pt-5">testimonial</p>
+    <div class="text-center capitalize text-4xl heading"><span class="title">words </span>about our style</div>
+    <div class="swiper testimonials-slider md:px-14 px-5" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+        <div *ngFor="let testimonial of testimonials; let i = index" class="swiper-slide">
+          <div class="testimonial-wrap">
+            <div class="testimonial-item">
+              <img [src]="'../assets/testimonials/testimonials-' + (i + 1) + '.jpg'" class="testimonial-img" alt="">
+              <h3>{{ testimonial.name }}</h3>
+              <h4>{{ testimonial.designation }}</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                {{ testimonial.quote }}
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>

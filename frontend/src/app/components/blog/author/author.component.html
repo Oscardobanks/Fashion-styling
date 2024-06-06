@@ -1,0 +1,98 @@
+<app-header [title]="title" [subtitle]="subtitle"></app-header>
+
+<section class="sm:mx-10 mx-5">
+    <div class="xl:grid grid-cols-5 gap-5 my-10 sm:mx-14 mx-5 relative">
+        <div class="col-span-2">
+            <img [src]="author?.image" alt=" {{ author!.lastname }}">
+        </div>
+        <div class="col-span-3 max-w-xl">
+            <div class="xl:pt-0 pt-3 text-gray-500 font-semibold">
+                <p><span> {{ formattedLength }} </span>Published Post(s)</p>
+            </div>
+            <p class="text-3xl font-bold"> {{ author?.firstname }} {{ author?.lastname }} </p>
+            <p class="text-lg"> {{ author?.about }} </p>
+            <div class="xl:absolute bottom-0 pt-5">
+                <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 lg:ml-2">Create New Blog</button>
+                <button
+                    class="border border-purple-600 hover:bg-purple-600 text-purple-600 hover:text-white font-bold px-4 py-2 ml-4 mt-2">Add
+                    New Style</button>
+            </div>
+        </div>
+    </div>
+    <div class="text-center font-bold capitalize text-4xl heading lg:mb-5 lg:pb-0 py-10"><span class="title">All
+        </span>blogs</div>
+
+    <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-10 lg:gap-y-0 gap-y-10">
+        <div *ngFor="let blog of getPaginatedCards()" class="capitalize relative lg:my-5 sm:pb-14">
+            <img [src]="blog.image" alt="">
+            <div class="flex gap-2 py-3 font-semibold text-xl lg:ms-5">
+                <i class="fas fa-calendar-alt mt-1"></i>
+                <p> {{ blog.date }}</p>
+            </div>
+            <div class="my-3">
+                <a href="" class="lg:text-3xl text-2xl text-purple-700 font-semibold">{{ blog.title }}</a>
+            </div>
+            <p class="lg:text-lg text-md"> {{ extractFirstParagraph(blog.content) }}</p>
+            <div class="sm:absolute bottom-0">
+                <div>
+                    <a href="" class="flex gap-1">
+                        <p class="text-purple-700 font-semibold">Read more</p>
+                        <i class="fas fa-arrow-right pt-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="totalBlogs > 6" class="flex justify-center lg:mt-10 my-20">
+        <button class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg mr-2" (click)="previousPage()"
+            [disabled]="currentPage === 1">Previous</button>
+
+        <div class="flex">
+            <button *ngFor="let pageNumber of pageNumbers" class="bg-gray-200 text-gray-700 px-2 py-2 rounded-lg mx-1"
+                [ngClass]="{'text-white': pageNumber === currentPage, 'font-bold': pageNumber === currentPage, 'active': pageNumber === activePage}"
+                (click)="goToPage(pageNumber); activePage = pageNumber">{{ pageNumber }}</button>
+        </div>
+
+        <button class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg ml-2" (click)="nextPage()"
+            [disabled]="currentPage === totalPages">Next</button>
+    </div>
+
+    <div class="container-fluid latest-news py-5 xl:mx-10">
+        <div class="py-5">
+            <div class="font-bold capitalize text-4xl lg:mb-5 lg:pb-0 pb-5"><span class="title">Fashion </span>Styles
+            </div>
+            <owl-carousel-o [options]="carouselOption">
+                <ng-template carouselSlide *ngFor="let item of authorStyles" class="latest-news-carousel owl-carousel">
+                    <div class="latest-news-item lg:text-lg text-md">
+                        <div class="bg-purple-200 rounded">
+                            <div class="overflow-hidden">
+                                <img src="{{ item.image }}" class="img-zoomin w-100" alt="">
+                            </div>
+                            <div class="flex flex-col p-4">
+                                <a href="#" class="h4">{{ item.title }}</a>
+                                <div class="pt-5">
+                                    <small class=""><i class="fas fa-calendar-alt me-1"></i> {{ item.date }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+        <p class="text-3xl lg:w-2/4 w-3/4 text-center text-purple-700 font-bold uppercase mt-20">get all latest posts
+            delivered right to your inbox
+        </p>
+    </div>
+
+    <div class="flex justify-center my-10">
+        <input type="email" name="email" placeholder="Email Address" class="lg:w-1/4 inbox border border-gray-300 p-2">
+        <button class="border border-purple-600 text-purple-700 p-2 mx-2 active:bg-purple-600 active:text-white">Join
+            Today</button>
+    </div>
+</section>
+
+<app-footer></app-footer>

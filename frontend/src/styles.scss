@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import "../node_modules/swiper/swiper-bundle.min.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.img-zoomin {
+    transition: 0.5s;
+}
+
+.img-zoomin:hover {
+    transform: scale(1.1);
+}
+
+.title {
+    color: #881BDE;
+    font-weight: bold;
+}
+
+.heading::after {
+    content: "";
+    position: relative;
+    display: block;
+    margin-top: 6px;
+    width: 100px;
+    height: 3px;
+    background: #881BDE;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+// Owl Carousel on author page
+.container-fluid.latest-news {
+    position: relative;
+}
+
+.owl-prev {
+    position: absolute;
+    top: -65px;
+    right: 50px;
+    height: 40px !important;
+    width: 40px !important;
+    transition: 0.5s;
+    border: 1px solid #881BDE;
+    background-color: white !important;
+    color: #881BDE !important;
+    border-radius: 50% !important;
+}
+
+.owl-next {
+    position: absolute;
+    top: -65px;
+    right: 0;
+    height: 40px !important;
+    width: 40px !important;
+    transition: 0.5s;
+    border: 1px solid #881BDE;
+    background-color: white !important;
+    color: #881BDE !important;
+    border-radius: 50% !important;
+}
+
+.owl-prev svg, .owl-next svg {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    font-size: 20px;
+}
+
+.owl-prev:hover,
+.owl-next:hover {
+    background: #881BDE !important;
+    color: white !important;
+}
+
+@media (max-width: 400px) {
+    .owl-next,.owl-prev {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+}
