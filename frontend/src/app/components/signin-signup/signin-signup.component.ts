@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { initFlowbite } from 'flowbite';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,21 +11,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SigninSignupComponent {
 
   title = 'signin-signup';
-  selectedOption!: string;
+  selectedOption: string = 'user';
   showResetPasswordForm = false;
   signUpMode: boolean = false;
   signUpMode2: boolean = false;
   hideSignUp: boolean = false;
 
-  author = {
-    username: '',
-    email: '',
-    password: '',
-    bodyweight: '',
-    height: '',
-  }
+  fb = inject(FormBuilder);
+  _auth = inject(AuthService);
+  registerForm !: FormGroup;
 
-  constructor(private _auth: AuthService, private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
 
@@ -59,6 +55,22 @@ export class SigninSignupComponent {
       this.signUpMode = false;
       this.signUpMode2 = false;
     });
+
+    if(this.selectedOption === 'user'){
+      this.registerForm = this.fb.group({
+        username: ['', Validators.required],
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        password: ['', Validators.required],
+        bodyweight: ['', Validators.required],
+        height: ['', Validators.required]
+      })
+    } else {
+      this.registerForm = this.fb.group({
+        username: ['', Validators.required],
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        password: ['', Validators.required]
+      })
+    }
   }
 
   toggleResetPasswordForm(showReset: boolean, event: Event) {
@@ -77,26 +89,17 @@ export class SigninSignupComponent {
   }
 
   register() {
-    let registerData = new FormData()
-    registerData.append('username', this.author.username)
-    registerData.append('email', this.author.email)
-    registerData.append('password', this.author.password)
-    registerData.append('bodyweight', this.author.bodyweight)
-    registerData.append('height', this.author.height)
-
-    if (registerData.has(this.author.bodyweight)) {
-      this._auth.registerStylist(registerData).subscribe(
-        res => {
-          this.router.navigate(['/home'])
-        }
-      )
-    } else {
-      this._auth.registerUser(registerData).subscribe(
-        res => {
-          this.router.navigate(['/home'])
-        }
-      )
-    }
+    this._auth.registerUser(this.registerForm.value).subscribe({
+      next: () => {
+        alert("User Created!")
+        this.registerForm.reset();
+        this.router.navigate(['/home'])
+      },
+      error: (err) => {
+        console.log(err);
+        this.registerForm.reset();
+      }
+    })
   }
 
   login() {

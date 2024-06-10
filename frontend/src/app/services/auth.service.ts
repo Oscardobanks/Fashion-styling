@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor( private http: HttpClient ) { }
+  // constructor( private http: HttpClient ) { }
+  http = inject(HttpClient);
 
-  private url = 'http://127.0.0.1:3000/';
+  private url = 'http://localhost:5000/auth/';
 
   registerUser( user: any) {
-    return this.http.post(this.url + 'user' + '/register', user)
+    return this.http.post(this.url + 'register-user', user)
   }
 
   registerStylist( stylist: any) {
-    return this.http.post(this.url + 'stylist' + '/register', stylist)
+    return this.http.post(this.url + 'register-stylist', stylist)
   }
 }

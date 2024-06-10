@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { LandingpageComponent } from './components/landingpage/landingpage.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { LandingpageComponent } from './pages/landingpage/landingpage.component'; 
 import { SigninSignupComponent } from './components/signin-signup/signin-signup.component';
 import { AboutComponent } from './components/about/about.component';
 import { AllBlogsComponent } from './components/blog/all-blogs/all-blogs.component';
@@ -10,7 +10,7 @@ import { BlogFormComponent } from './components/blog/blog-form/blog-form.compone
 import { AuthorComponent } from './components/blog/author/author.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes = [ 
 

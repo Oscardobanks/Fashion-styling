@@ -4,11 +4,17 @@
     box-sizing: border-box;
 }
 
+.disabled{
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
 .main-body {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    overflow: scroll;
     background: #f1f1f1;
 }
 
@@ -47,6 +53,7 @@
 
 .signin-signup {
     z-index: 5;
+    overflow: auto;
 }
 
 form.sign-in-form {
@@ -64,7 +71,8 @@ form.sign-up-form {
     transition-delay: 1s;
     width: 40%;
     min-width: 238px;
-    padding: 0 10px;
+    max-height: 100vh;
+    padding-top: 40px;
 }
 
 .title {
@@ -78,7 +86,6 @@ form.sign-up-form {
     height: 50px;
     background: #f0f0f0;
     padding: 0 10px;
-    margin: 10px 0;
     border: 2px solid #c955f7;
     border-radius: 50px;
     display: flex;
@@ -118,16 +125,10 @@ form.sign-up-form {
     font-weight: 600;
     margin: 10px 0;
     text-transform: uppercase;
-    cursor: pointer;
 }
 
 .btn:hover {
     background: #cf3be9;
-}
-
-.social-text {
-    margin: 10px 0;
-    font-size: 16px;
 }
 
 a {
@@ -238,6 +239,7 @@ a {
     }
     form.sign-up-form {
         display: none;
+        padding-top: 0;
     }
     .container.sign-up-mode2 form.sign-up-form {
         display: flex;

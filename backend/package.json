@@ -1,15 +1,17 @@
 {
-  "name": "oscar-blog",
+  "name": "oscar-styles",
   "version": "1.0.0",
+  "type": "module",
   "description": "cafe management system",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "author": "oscardo",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
