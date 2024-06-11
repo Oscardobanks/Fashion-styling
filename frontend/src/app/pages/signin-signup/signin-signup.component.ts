@@ -20,6 +20,7 @@ export class SigninSignupComponent {
   fb = inject(FormBuilder);
   _auth = inject(AuthService);
   registerForm !: FormGroup;
+  loginForm!: FormGroup;
 
   constructor(private router: Router) { }
 
@@ -56,21 +57,8 @@ export class SigninSignupComponent {
       this.signUpMode2 = false;
     });
 
-    if(this.selectedOption === 'user'){
-      this.registerForm = this.fb.group({
-        username: ['', Validators.required],
-        email: ['', Validators.compose([Validators.required, Validators.email])],
-        password: ['', Validators.required],
-        bodyweight: ['', Validators.required],
-        height: ['', Validators.required]
-      })
-    } else {
-      this.registerForm = this.fb.group({
-        username: ['', Validators.required],
-        email: ['', Validators.compose([Validators.required, Validators.email])],
-        password: ['', Validators.required]
-      })
-    }
+    this.createRegisterForm();
+    this.createLoginForm();
   }
 
   toggleResetPasswordForm(showReset: boolean, event: Event) {
@@ -88,21 +76,75 @@ export class SigninSignupComponent {
     this.showResetPasswordForm = false;
   }
 
+
+  createRegisterForm() {
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required],
+      bodyweight: this.selectedOption === 'user'? ['', Validators.required] : [],
+      height: this.selectedOption === 'user'? ['', Validators.required] : []
+    })
+  }
+
+  createLoginForm() {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    })
+  }
+
+
+  toggleOption(option: string) {
+    this.selectedOption = option;
+    this.registerForm.reset();
+    this.createRegisterForm();
+  }
+
   register() {
-    this._auth.registerUser(this.registerForm.value).subscribe({
+    if(this.selectedOption === 'user'){
+      this._auth.registerUser(this.registerForm.value).subscribe({
+        next: () => {
+          alert("Your User Account has been Created!")
+          this.registerForm.reset();
+          this.router.navigate(['/home'])
+        },
+        error: (err) => {
+          console.log(err);
+          this.registerForm.reset();
+        }
+      })
+    } else{
+      const userWithoutBodyweightAndHeight = {
+        ...this.registerForm.value,
+         bodyweight: null,
+         height: null
+       };
+      this._auth.registerStylist(userWithoutBodyweightAndHeight).subscribe({
+        next: () => {
+          alert("Your Stylist Account has been Created!")
+          this.registerForm.reset();
+          this.router.navigate(['/home'])
+        },
+        error: (err) => {
+          console.log(err);
+          this.registerForm.reset();
+        }
+      })
+    }
+  }
+
+  login() {
+    this._auth.login(this.loginForm.value).subscribe({
       next: () => {
-        alert("User Created!")
-        this.registerForm.reset();
+        alert("You have successfully logged in!")
+        this.loginForm.reset();
         this.router.navigate(['/home'])
       },
       error: (err) => {
         console.log(err);
-        this.registerForm.reset();
+        this.loginForm.reset();
       }
     })
-  }
-
-  login() {
-
   }
 }

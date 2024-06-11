@@ -18,4 +18,8 @@ export class AuthService {
   registerStylist( stylist: any) {
     return this.http.post(this.url + 'register-stylist', stylist)
   }
+
+  login(user: any) {
+    return this.http.post<any>(this.url + 'login', user);
+  }
 }

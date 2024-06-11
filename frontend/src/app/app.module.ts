@@ -18,7 +18,7 @@ import { AuthorComponent } from './components/blog/author/author.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { SigninSignupComponent } from './components/signin-signup/signin-signup.component';
+import { SigninSignupComponent } from './pages/signin-signup/signin-signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component'; 
 import { CarouselComponent } from './pages/landingpage/components/carousel/carousel.component';

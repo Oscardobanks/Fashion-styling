@@ -42,24 +42,6 @@ export const registerUser = async (req, res, next) => {
   }
 };
 
-
-// export const registerStylist = async (req, res, next) => {
-//   const stylistRole = await Role.find({ role: "Stylist" });
-//   const salt = await bcrypt.genSalt(10);
-//   const hashPassword = await bcrypt.hash(req.body.password, salt);
-//   const newStylist = new Stylist({
-//     fullName: req.body.fullName,
-//     username: req.body.username,
-//     email: req.body.email,
-//     password: hashPassword,
-//     profileImage: req.body.profileImage,
-//     isAdmin: req.body.isAdmin,
-//     roles: stylistRole,
-//   });
-//   await newStylist.save();
-//   return next(CreateSuccess(200, "Stylist Registered Successfully!"));
-// };
-
 export const registerStylist = async (req, res, next) => {
   try {
     // 1. Fetch Stylist Role
@@ -113,7 +95,7 @@ export const registerAdmin = async (req, res, next) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
   const newStylist = new Stylist({
-    fullName: req.body.fullName,
+    // fullName: req.body.fullName, // Include if you have a fullName field
     username: req.body.username,
     email: req.body.email,
     password: hashPassword,
@@ -127,36 +109,54 @@ export const registerAdmin = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email }).populate(
+    let user;
+
+    // Check if the user is a Stylist
+    user = await Stylist.findOne({ email: req.body.email }).populate(
       "roles",
       "role"
     );
 
-    const { roles } = user;
+    if (!user) {
+      // If the user is not a Stylist, check if the user is a User
+      user = await User.findOne({ email: req.body.email }).populate(
+        "roles",
+        "role"
+      );
+    }
+
     if (!user) {
       return next(CreateError(404, "User not found"));
     }
+
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
       user.password
     );
+
     if (!isPasswordCorrect) {
       return next(CreateError(400, "Password is Incorrect"));
     }
+
     const token = jwt.sign(
       {
         id: user._id,
         isAdmin: user.isAdmin,
-        roles: roles,
+        roles: user.roles.map(role => role.role), // Extract role names
       },
       process.env.JWT_SECRET
     );
+
     res.cookie("access_token", token, { httpOnly: true }).status(200).json({
       status: 200,
       message: "Login Successfully!",
-      data: user,
+      data: {
+        userType: user.roles.some(role => role.role === 'Stylist')? 'Stylist' : 'User', // Determine user type based on roles
+        user: user,
+      },
     });
   } catch (error) {
+    // Only return the error response when necessary
     return next(CreateError(500, "Something Went wrong"));
   }
 };

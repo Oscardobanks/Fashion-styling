@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component'; 
-import { SigninSignupComponent } from './components/signin-signup/signin-signup.component';
+import { SigninSignupComponent } from './pages/signin-signup/signin-signup.component';
 import { AboutComponent } from './components/about/about.component';
 import { AllBlogsComponent } from './components/blog/all-blogs/all-blogs.component';
 import { BlogDetailComponent } from './components/blog/blog-detail/blog-detail.component';

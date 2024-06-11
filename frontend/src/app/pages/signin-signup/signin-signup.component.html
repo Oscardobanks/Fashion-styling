@@ -10,33 +10,60 @@
       <!-- Sign-in Form -->
       <form
         *ngIf="!showResetPasswordForm"
+        [formGroup]="loginForm"
         class="sign-in-form flex items-center justify-center flex-col w-3/5 gap-5 px-3"
       >
         <p class="headers text-6xl font-semibold text-pinkish-300">Sign in</p>
-        <div
-          class="w-full mt-3 rounded-full flex"
-        >
+        
+        <!-- Login Form -->
+        <div class="w-full my-2 rounded-full flex flex-col">
           <input
-            type="email"
+            type="text"
             placeholder="Email"
-            name="email"
+            formControlName="email"
             class="input-field bg-transparent border-none outline-none w-full text-xl px-3 text-brown-100"
           />
+          <span
+            *ngIf="
+              loginForm.hasError('required', 'email') &&
+              loginForm.controls['email'].dirty
+            "
+            class="text-red-500 text-sm"
+            >*Email is required
+          </span>
+          <span
+            *ngIf="loginForm.hasError('email', 'email')"
+            class="text-red-500 text-sm"
+            >*Email is invalid
+          </span>
         </div>
-        <div class="w-full rounded-full flex">
+        <div class="w-full my-2 rounded-full flex flex-col">
           <input
             type="password"
-            name="password"
             placeholder="Password"
-            class="input-field bg-transparent border-none outline-none w-full text-xl px- text-brown-100"
+            formControlName="password"
+            class="input-field bg-transparent border-none outline-none w-full text-xl px-3 text-brown-100"
           />
+          <span
+            *ngIf="
+              loginForm.hasError('required', 'password') &&
+              loginForm.controls['password'].dirty
+            "
+            class="text-red-500 text-sm"
+            >*Password is required
+          </span>
         </div>
+
+        <!-- Signin Button -->
         <input
           type="submit"
           value="Sign in"
+          [disabled]="loginForm.invalid"
+          [class.disabled]="loginForm.invalid"
           (click)="login()"
           class="btn border-none uppercase w-36 h-12 rounded-full cursor-pointer"
         />
+
         <p class="text-base font-semibold text-center">
           Or Sign in with Google
         </p>
@@ -70,7 +97,7 @@
       >
         <p class="headers text-6xl font-semibold text-pinkish-300">Sign up</p>
 
-        <!-- Registration buttons -->
+        <!-- Registration Radio buttons -->
         <div class="flex gap-14">
           <div class="flex items-center gap-3">
             <input
@@ -79,9 +106,9 @@
               value="user"
               name="user-stylist-button"
               [(ngModel)]="selectedOption"
-              (click)="selectedOption = 'user'; registerForm.reset()"
-              class="checked:text-pinkish-300 bg-gray-100 border-gray-300 focus:ring-pinkish-300 dark:focus:ring-pinkish-300 cursor-pointer"
+              (click)="toggleOption('user')"
               [checked]="selectedOption === 'user'"
+              class="checked:text-pinkish-300 bg-gray-100 border-gray-300 focus:ring-pinkish-300 dark:focus:ring-pinkish-300 cursor-pointer"
             />
             <label
               for="user-button"
@@ -96,9 +123,9 @@
               value="stylist"
               name="user-stylist-button"
               [(ngModel)]="selectedOption"
-              (click)="selectedOption = 'stylist'; registerForm.reset()"
-              class="checked:text-pinkish-300 bg-gray-100 border-gray-300 focus:ring-pinkish-300 dark:focus:ring-pinkish-300 cursor-pointer"
+              (click)="toggleOption('stylist')"
               [checked]="selectedOption === 'stylist'"
+              class="checked:text-pinkish-300 bg-gray-100 border-gray-300 focus:ring-pinkish-300 dark:focus:ring-pinkish-300 cursor-pointer"
             />
             <label
               for="stylist-button"
@@ -109,9 +136,7 @@
         </div>
 
         <!-- Registration Form -->
-        <div
-          class="w-full mt-3 mb-2 rounded-full flex flex-col"
-        >
+        <div class="w-full mt-3 mb-2 rounded-full flex flex-col">
           <input
             type="text"
             placeholder="Username"
@@ -127,9 +152,7 @@
             >*Username is required
           </span>
         </div>
-        <div
-          class="w-full my-2 rounded-full flex flex-col"
-        >
+        <div class="w-full my-2 rounded-full flex flex-col">
           <input
             type="text"
             placeholder="Email"
@@ -150,9 +173,7 @@
             >*Email is invalid
           </span>
         </div>
-        <div
-          class="w-full my-2 rounded-full flex flex-col"
-        >
+        <div class="w-full my-2 rounded-full flex flex-col">
           <input
             type="password"
             placeholder="Password"
@@ -225,6 +246,7 @@
           </div>
         </div>
 
+        <!-- Signup Button -->
         <input
           type="submit"
           value="Sign up"
@@ -233,9 +255,8 @@
           (click)="register()"
           class="btn border-none uppercase w-36 h-12 rounded-full cursor-pointer"
         />
-        <p class="text-base font-semibold">
-          Or Sign in with Google
-        </p>
+
+        <span class="text-base font-semibold"> Or Sign in with Google </span>
         <div class="flex justify-center">
           <a href="">
             <img src="../assets/google.svg" alt="" />
