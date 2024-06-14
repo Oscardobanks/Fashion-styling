@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+nav{
+    padding: 15px 0px;
+}
+
+.logo{
+    margin-bottom: 0;
+}
+
 .disabled{
     opacity: 0.3;
     cursor: not-allowed;
@@ -14,7 +22,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    overflow: scroll;
+    overflow: auto;
     background: #f1f1f1;
 }
 
@@ -234,9 +242,16 @@ a {
         width: 100vw;
         height: 100vh;
     }
+
+    nav{
+        padding: 15px 40px;
+    }
 }
 
 @media (max-width:635px) {
+    nav{
+        padding: 15px 10px;
+    }
     .container::before {
         display: none;
     }

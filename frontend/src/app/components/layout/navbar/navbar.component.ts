@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
     .logo {
       font-family: 'Footlight MT Light', serif;
     }
+      a {
+        cursor: pointer;
+      }
 
     @media (max-width: 991px) {
         #nav-lg {
