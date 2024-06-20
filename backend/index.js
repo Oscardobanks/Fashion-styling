@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import roleRoute from './routes/role.js';
-import authRoute from './routes/auth.js';
-import userRoute from './routes/user.js';
+import roleRoute from './user/routes/role.js';
+import authRoute from './user/routes/auth.js';
+import userRoute from './user/routes/user.js';
+import articleApi from './blog/routes/article.js'
+import styleApi from './blog/routes/style.js'
+import authorApi from './blog/routes/author.js'
 
 const app = express()
 dotenv.config()
@@ -20,6 +23,11 @@ app.use(cors({
 app.use("/role", roleRoute);
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
+app.use('/article', articleApi);
+app.use('/style', styleApi);
+app.use('/stylist', authorApi);
+
+app.use('/getimage', express.static('./uploads'));
 
 // Response Handler Middleware
 app.use((err, req, res, next) => {

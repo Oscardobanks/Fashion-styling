@@ -16,7 +16,7 @@ export class CarouselComponent {
     this.scrollService.scrollToSection(sectionId);
   }
 
-  images: string[] = ['../assets/Rectangle 1.png', '../assets/pexels-ron-lach-8396298.jpg'];
+  images: string[] = ['../assets/pexels-anastasia-shuraeva-5704845.jpg', '../assets/pexels-tembela-bohle-1884583.jpg'];
   currentImageIndex: number = 0;
 
   ngOnInit() {

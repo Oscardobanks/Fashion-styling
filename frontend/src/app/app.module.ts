@@ -11,7 +11,6 @@ import { AllBlogsComponent } from './components/blog/all-blogs/all-blogs.compone
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { BlogFormComponent } from './components/blog/blog-form/blog-form.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BlogDetailComponent } from './components/blog/blog-detail/blog-detail.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AuthorComponent } from './components/blog/author/author.component';
@@ -26,6 +25,10 @@ import { TestimonialComponent } from './pages/landingpage/components/testimonial
 import { LandingFooterComponent } from './pages/landingpage/components/landing-footer/landing-footer.component';
 import { LandingAboutComponent } from './pages/landingpage/components/landing-about/landing-about.component'; 
 import { LandingServicesComponent } from './pages/landingpage/components/landing-services/landing-services.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { StyleFormComponent } from './components/style/style-form/style-form.component';
+import { ChatComponent } from './pages/chat/chat.component';
+import { BlogDetailComponent } from './components/blog/blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { LandingServicesComponent } from './pages/landingpage/components/landing
     LandingFooterComponent,
     LandingAboutComponent,
     LandingServicesComponent,
-    ContactComponent
+    ContactComponent,
+    StyleFormComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,8 @@ import { LandingServicesComponent } from './pages/landingpage/components/landing
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CarouselModule
+    CarouselModule,
+    AngularEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

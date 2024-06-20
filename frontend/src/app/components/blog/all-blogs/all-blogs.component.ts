@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Blog } from 'src/app/components/blog/blog';
+import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
 
 @Component({
   selector: 'app-all-blogs',
   templateUrl: './all-blogs.component.html',
-  styleUrls: ['./all-blogs.component.scss']
+  styleUrls: ['./all-blogs.component.scss'],
 })
 export class AllBlogsComponent {
   itemsPerPage = 6;
@@ -14,21 +14,40 @@ export class AllBlogsComponent {
   activePage: number = 1;
   pageNumbers: number[] = [];
   title: string = 'Our blog';
-  subtitle: string = 'Our news, views, events and Best Articles are designed and dedicated to providing valuable insights and resources to our readers to help you move forward, faster in the fashion world.'
+  subtitle: string =
+    'Our news, views, events and Best Articles are designed and dedicated to providing valuable insights and resources to our readers to help you move forward, faster in the fashion world.';
 
-  constructor(private blogService: BlogService) {
+  articles: any;
+  author: any;
+
+  constructor(private blogService: BlogService, public _auth: AuthService) {
     this.generatePageNumbers();
   }
 
   ngOnInit() {
-    this.blogService.getBlogs().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    this.totalPages = Math.ceil(this.blogService.getBlogs().length / this.itemsPerPage);
-    this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-    this.activePage = this.currentPage;
+    this.blogService.getAll().subscribe(
+      (res) => {
+        this.articles = res;
+        console.log(this.articles);
+        this.totalPages = Math.ceil(this.articles.length / this.itemsPerPage);
+        this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+        this.activePage = this.currentPage;
+  
+        this._auth.getAuthorById(this.articles[0].idAuthor).subscribe((data) => {
+          this.author = data;
+          this.author = this.author.data
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   generatePageNumbers() {
-    this.pageNumbers = Array(this.totalPages).fill(0).map((_, index) => index + 1);
+    this.pageNumbers = Array(this.totalPages)
+      .fill(0)
+      .map((_, index) => index + 1);
   }
 
   previousPage() {
@@ -55,13 +74,20 @@ export class AllBlogsComponent {
   getPaginatedCards(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.blogService.getBlogs().slice(startIndex, endIndex);
+  
+    let paginatedCards: any[] = [];
+  
+    this.blogService.getAll().subscribe((res: any) => {
+      paginatedCards = res.slice(startIndex, endIndex);
+    });
+  
+    return paginatedCards;
   }
 
   extractFirstParagraph(content: string): string {
     const paragraphs = content.split('\n');
     if (paragraphs.length > 0) {
-      const firstParagraph = paragraphs.find(p => p.trim() !== '');
+      const firstParagraph = paragraphs.find((p) => p.trim() !== '');
       if (firstParagraph) {
         return firstParagraph;
       }

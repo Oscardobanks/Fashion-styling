@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -30,6 +32,38 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class NavbarComponent {
 
+export class NavbarComponent implements OnInit {
+  isDropdownOpen = false;
+  token!: string;
+  id: any;
+  newAuthor: any;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private _auth: AuthService){}
+
+  ngOnInit(): void {
+    this.id = this._auth.getAuthorDataFromToken();
+    
+    this._auth.getAuthorById(this.id).subscribe(res => {
+      this.newAuthor = res;
+    });
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  myAccount() {
+    if (this.newAuthor.data.fullName === '') {
+      this.router.navigate(['/profile', this._auth.getAuthorDataFromToken()]);
+    } else {
+      this.router.navigate(['/author', this._auth.getAuthorDataFromToken()]);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+    this.router.navigate(['/signin']);
+  }
 }
+

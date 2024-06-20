@@ -1,0 +1,61 @@
+<app-header [title]="title" [subtitle]="subtitle"></app-header>
+
+<section>
+  <div
+    class="my-10 md:p-10 mx-auto lg:w-2/4 w-10/12 md:border-2 border-gray-300 md:shadow-md md:bg-purple-50"
+  >
+    <p class="text-4xl capitalize font-bold text-center mb-10">
+      <span class="title">create</span> Style
+    </p>
+
+    <form (ngSubmit)="createStyle()">
+      <div class="flex flex-col mb-5">
+        <label for="context" class="text-2xl font-bold">Context</label>
+        <input
+          type="text"
+          id="context"
+          [(ngModel)]="style.context"
+          name="context"
+          class="border focus:border-purple-500 outline-none"
+          placeholder="Enter Style Context"
+          required
+        />
+      </div>
+      
+      <label for="image" class="cursor-pointer">
+        <div class="flex gap-4 md:bg-white bg-gray-100 w-full p-2">
+          <div
+            class="text-black font-semibold bg-purple-300 hover:bg-purple-400 rounded-md px-3 py-2"
+          >
+            Choose Image
+          </div>
+          <p *ngIf="imageName" class="pt-2">{{ imageName }}</p>
+          <input
+            id="image"
+            type="file"
+            class="hidden"
+            (change)="onSelectFile($event)"
+            required
+          />
+        </div>
+      </label>
+      <p
+        class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+        id="file_input_help"
+      >
+        SVG, PNG, JPG or GIF (MAX. 800 x 400px).
+      </p>
+
+      <div class="mt-10 text-right w-full">
+        <button
+          type="submit"
+          class="text-white font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 w-full"
+        >
+          Create Style
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<app-footer></app-footer>

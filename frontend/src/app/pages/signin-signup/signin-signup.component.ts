@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -127,7 +126,7 @@ export class SigninSignupComponent {
         next: () => {
           alert('Your User Account has been Created!');
           this.registerForm.reset();
-          this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (err) => {
           console.log(err);
@@ -144,7 +143,7 @@ export class SigninSignupComponent {
         next: () => {
           alert('Your Stylist Account has been Created!');
           this.registerForm.reset();
-          this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (err) => {
           console.log(err);
@@ -156,7 +155,7 @@ export class SigninSignupComponent {
 
   login() {
     this._auth.login(this.loginForm.value).subscribe({
-      next: () => {
+      next: (res) => {
         alert('You have successfully logged in!');
         this.loginForm.reset();
         this.router.navigate(['/home']);

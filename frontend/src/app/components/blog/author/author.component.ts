@@ -3,6 +3,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Blog } from '../blog';
 import { BlogService } from 'src/app/services/blog.service';
 import { Author } from '../author';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-author',
@@ -10,11 +12,16 @@ import { Author } from '../author';
   styleUrls: ['./author.component.scss']
 })
 export class AuthorComponent {
+
+  id: any;
+  newAuthor: any;
+  articles: any;
+  styles: any;
   author: Author | undefined;
   blog: Blog | undefined;
   itemsPerPage = 6;
   currentPage = 1;
-  index: number = 1;
+  index: number = 3;
   totalBlogs!: number;
   totalPages!: number;
   activePage: number = 1;
@@ -25,30 +32,48 @@ export class AuthorComponent {
   filteredBlog = this.blogService.getBlogs().filter(name => name.author === this.blogService.getAuthorById(this.index)?.lastname);
   authorBlogs = [...this.filteredBlog];
 
-  filteredStyle = this.blogService.getStyles().filter(name => name.author === this.blogService.getAuthorById(this.index)?.lastname);
+  filteredStyle = this.blogService.getOldStyles().filter(name => name.author === this.blogService.getAuthorById(this.index)?.lastname);
   authorStyles = [...this.filteredStyle];
 
   arrayLength = this.authorBlogs.length;
   formattedLength = '';
 
-  constructor(private blogService: BlogService) {
+  constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute, private _auth: AuthService) {
     this.generatePageNumbers();
   }
 
   ngOnInit() {
     this.authorBlogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    this.authorStyles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     this.totalPages = Math.ceil(this.authorBlogs.length / this.itemsPerPage);
     this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
     this.activePage = this.currentPage;
     this.totalBlogs = this.authorBlogs.length;
-    // this.getBlog();
-    this.getAuthor();
     if (this.arrayLength < 10) {
       this.formattedLength = "0" + this.arrayLength;
     } else {
       this.formattedLength = this.arrayLength.toString();
     }
+
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    
+    this._auth.getAuthorById(this.id).subscribe(res => {
+      this.newAuthor = res;
+      this.newAuthor = this.newAuthor.data
+    });
+
+    this.blogService.getBlogByAuthorId(this.id).subscribe(res => {
+      this.articles = res;
+    }, err => {
+      console.log();
+      
+    })
+
+    this.blogService.getStyleByAuthorId(this.id).subscribe(res => {
+      this.styles = res;
+    }, err => {
+      console.log();
+      
+    })
   }
 
   carouselOption: OwlOptions = {
@@ -75,14 +100,6 @@ export class AuthorComponent {
       }
     }
   };
-
-  // getBlog() {
-  //   this.blog = this.blogService.getBlogById(0);
-  // }
-
-  getAuthor() {
-    this.author = this.blogService.getAuthorById(this.index);
-  }
 
   generatePageNumbers() {
     this.pageNumbers = Array(this.totalPages).fill(0).map((_, index) => index + 1);

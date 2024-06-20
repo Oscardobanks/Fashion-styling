@@ -1,20 +1,41 @@
 <app-header [title]="title" [subtitle]="subtitle"></app-header>
 
-<div *ngIf="blog" class="my-20 text-xl">
-    <div class="md:w-3/4 w-5/6 text-center mx-auto">
-        <img [src]="blog.image" alt="{{ blog.title }}" />
+<div *ngIf="article" class="my-20 text-xl">
+  <div class="md:w-3/4 w-5/6 text-center mx-auto">
+    <img
+      [src]="'http://127.0.0.1:5000/getimage/' + article.image"
+      alt="{{ article.title }}"
+      class="blogImage"
+    />
+  </div>
+  <div class="w-3/4 mx-auto py-10">
+    <span class="md:text-4xl text-3xl text-purple-600 font-bold">{{
+      article.title
+    }}</span>
+    <div class="flex justify-between items-center my-5">
+      <a
+        *ngIf="author.id === _auth.getAuthorDataFromToken()"
+        [routerLink]="['/author', _auth.getAuthorDataFromToken()]"
+        class="font-bold"
+        >Author:
+        <span class="hover:text-purple-700"> {{ author.username }} </span></a
+      >
+      <a
+        *ngIf="author.id !== _auth.getAuthorDataFromToken()"
+        class="font-bold cursor-not-allowed"
+        >Author:
+        <span class="hover:text-purple-700"> {{ author.username }} </span></a
+      >
+      <div class="flex gap-2 font-semibold md:text-xl text-lg">
+        <i class="fas fa-calendar-alt mt-1"></i>
+        <p>{{ article.date | date }}</p>
+      </div>
     </div>
-    <div class="w-3/4 mx-auto py-10 text-center">
-        <span class="md:text-4xl text-3xl text-purple-600 font-bold">{{ blog.title }}</span>
-        <div class="flex gap-10 my-5">
-            <a href="" class="font-bold">Author: <span class="hover:text-purple-700"> {{ blog.author }} </span></a>
-            <div class="flex gap-2 font-semibold md:text-xl text-lg">
-                <i class="fas fa-calendar-alt mt-1"></i>
-                <p> {{ blog.date }}</p>
-            </div>
-        </div>
-        <p class="text-xl text-start whitespace-pre-line">{{ blog.content }}</p>
-    </div>
+    <p
+      class="text-xl text-start whitespace-pre-line"
+      [innerHTML]="article.description"
+    ></p>
+  </div>
 </div>
 
 <app-footer></app-footer>

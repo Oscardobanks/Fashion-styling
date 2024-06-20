@@ -1,16 +1,15 @@
-const express = require('express')
-const articleApi = require('./routes/article')
-const authorApi = require('./routes/author')
-const cors = require('cors')
+import express, { json } from 'express'
+import articleApi from './routes/article.js'
+import authorApi from './routes/author.js'
+import cors from 'cors'
 
-require('./config/connect')
+import './config/connect'
 
 const app = express()
-app.use(express.json())
+app.use(json())
 app.use(cors())
 
 app.use('/article', articleApi)
-app.use('/user', authorApi)
 app.use('/stylist', authorApi)
 
 // app.use('/getimage', express.static('./uploads'))

@@ -3,19 +3,21 @@
 <section class="sm:mx-10 mx-5">
     <div class="xl:grid grid-cols-5 gap-5 my-10 sm:mx-14 mx-5 relative">
         <div class="col-span-2">
-            <img [src]="author?.image" alt=" {{ author!.lastname }}">
+            <img [src]="'http://127.0.0.1:5000/getimage/' + newAuthor.profileImage" alt="Author Profile Image">
         </div>
         <div class="col-span-3 max-w-xl">
             <div class="xl:pt-0 pt-3 text-gray-500 font-semibold">
                 <p><span> {{ formattedLength }} </span>Published Post(s)</p>
             </div>
-            <p class="text-3xl font-bold"> {{ author?.firstname }} {{ author?.lastname }} </p>
-            <p class="text-lg"> {{ author?.about }} </p>
+            <p class="text-3xl font-bold"> {{ newAuthor.fullName }} </p>
+            <p class="text-lg"> {{ newAuthor.about }} </p>
             <div class="xl:absolute bottom-0 pt-5">
-                <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 lg:ml-2">Create New Blog</button>
-                <button
+                <button routerLink="/createblog" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 lg:ml-2">Create New Blog</button>
+                <button routerLink="/createstyle"
                     class="border border-purple-600 hover:bg-purple-600 text-purple-600 hover:text-white font-bold px-4 py-2 ml-4 mt-2">Add
                     New Style</button>
+                    <button [routerLink]="['/profile', newAuthor._id]"
+                    class="border border-purple-600 hover:bg-purple-600 text-purple-600 hover:text-white font-bold px-4 py-2 ml-4 mt-2">Edit Profile</button>
             </div>
         </div>
     </div>
@@ -23,19 +25,19 @@
         </span>blogs</div>
 
     <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-10 lg:gap-y-0 gap-y-10">
-        <div *ngFor="let blog of getPaginatedCards()" class="capitalize relative lg:my-5 sm:pb-14">
-            <img [src]="blog.image" alt="">
+        <div *ngFor="let article of articles" class="capitalize relative lg:my-5 sm:pb-14">
+            <img [src]="'http://127.0.0.1:5000/getimage/' + article.image" alt="" class="blogImage">
             <div class="flex gap-2 py-3 font-semibold text-xl lg:ms-5">
                 <i class="fas fa-calendar-alt mt-1"></i>
-                <p> {{ blog.date }}</p>
+                <p> {{ article.date | date}}</p>
             </div>
             <div class="my-3">
-                <a href="" class="lg:text-3xl text-2xl text-purple-700 font-semibold">{{ blog.title }}</a>
+                <a [routerLink]="['/blog', article._id]" class="lg:text-3xl text-2xl text-purple-700 font-semibold">{{ article.title }}</a>
             </div>
-            <p class="lg:text-lg text-md"> {{ extractFirstParagraph(blog.content) }}</p>
+            <p class="lg:text-lg text-md" [innerHTML]="extractFirstParagraph(article.description)"></p>
             <div class="sm:absolute bottom-0">
                 <div>
-                    <a href="" class="flex gap-1">
+                    <a [routerLink]="['/blog', article._id]" class="flex gap-1">
                         <p class="text-purple-700 font-semibold">Read more</p>
                         <i class="fas fa-arrow-right pt-1"></i>
                     </a>
@@ -63,16 +65,16 @@
             <div class="font-bold capitalize text-4xl lg:mb-5 lg:pb-0 pb-5"><span class="title">Fashion </span>Styles
             </div>
             <owl-carousel-o [options]="carouselOption">
-                <ng-template carouselSlide *ngFor="let item of authorStyles" class="latest-news-carousel owl-carousel">
+                <ng-template carouselSlide *ngFor="let item of styles" class="latest-news-carousel owl-carousel">
                     <div class="latest-news-item lg:text-lg text-md">
                         <div class="bg-purple-200 rounded">
                             <div class="overflow-hidden">
-                                <img src="{{ item.image }}" class="img-zoomin w-100" alt="">
+                                <img [src]="'http://127.0.0.1:5000/getimage/' +  item.image" class="img-zoomin w-100" alt="" class="blogImage">
                             </div>
                             <div class="flex flex-col p-4">
-                                <a href="#" class="h4">{{ item.title }}</a>
+                                <p class="h4">{{ item.context }}</p>
                                 <div class="pt-5">
-                                    <small class=""><i class="fas fa-calendar-alt me-1"></i> {{ item.date }}</small>
+                                    <small class=""><i class="fas fa-calendar-alt me-1"></i> {{ item.date | date}}</small>
                                 </div>
                             </div>
                         </div>

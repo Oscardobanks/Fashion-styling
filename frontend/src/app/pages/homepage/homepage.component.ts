@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
-import { Blog } from '../../components/blog/blog';
 import { Style } from '../../components/blog/styles';
+
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +10,10 @@ import { Style } from '../../components/blog/styles';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent {
-  recentBlog: Blog[] = [];
+  recentBlog: any[] = [];
+  styles: any;
+  author: any;
+  id: any;
   itemsPerPage = 8;
   currentPage = 1;
   totalPages!: number;
@@ -18,19 +22,26 @@ export class HomepageComponent {
   pageNumbers: number[] = [];
   title: string = 'personal stylist';
   subtitle: string = 'Welcome to our world of style and elegance! Unleash your fashion potential with our expert guidance and curated collections';
+  paginatedCards: any[] = [];
 
-  constructor(private blogService: BlogService) {
+  constructor(private blogService: BlogService, private _auth: AuthService) {
     this.generatePageNumbers();
   }
 
   ngOnInit() {
-    this.blogService.getBlogs().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    this.blogService.getStyles().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    this.recentBlog = this.blogService.getBlogs();
-    this.totalPages = Math.ceil(this.blogService.getStyles().length / this.itemsPerPage);
-    this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-    this.activePage = this.currentPage;
-    this.totalBlogs = this.blogService.getStyles().length;
+    this.blogService.getOldStyles().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.blogService.getRecentBlogs().subscribe(blogs => {
+      this.recentBlog = blogs;
+      this.totalPages = Math.ceil(this.recentBlog.length / this.itemsPerPage);
+      this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      this.activePage = this.currentPage;
+      this.totalBlogs = this.recentBlog.length;
+    });
+
+    this._auth.getAuthorById(this.id).subscribe(res => {
+      this.author = res;
+      this.author = this.author.data
+    });
   }
 
   shortTitle(input: string): string {
@@ -45,6 +56,7 @@ export class HomepageComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.activePage = this.currentPage;
+      this.getPaginatedCards();
     }
   }
 
@@ -52,6 +64,7 @@ export class HomepageComponent {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.activePage = this.currentPage;
+      this.getPaginatedCards();
     }
   }
 
@@ -59,12 +72,13 @@ export class HomepageComponent {
     if (pageNumber >= 1 && pageNumber <= this.totalPages) {
       this.currentPage = pageNumber;
       this.activePage = this.currentPage;
+      this.getPaginatedCards();
     }
   }
 
   getPaginatedCards(): Style[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.blogService.getStyles().slice(startIndex, endIndex);
+    return this.blogService.getOldStyles().slice(startIndex, endIndex);
   }
 }
